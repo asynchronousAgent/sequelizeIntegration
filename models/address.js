@@ -2,9 +2,8 @@ const { DataTypes } = require("sequelize");
 const sequelize = require("../db");
 
 const AddressBook = sequelize.define("AddressBook", {
-  userId: {
+  user_id: {
     type: DataTypes.INTEGER,
-    // primaryKey: true,
     references: {
       model: "Users",
       key: "id",

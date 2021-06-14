@@ -41,9 +41,6 @@ const User = sequelize.define("User", {
   profile_img_online_storage: {
     type: DataTypes.STRING,
   },
-  //   address_id: {
-  //     type: DataTypes.ARRAY,
-  //   },
 });
 
 User.hasMany(AddressBook, {
