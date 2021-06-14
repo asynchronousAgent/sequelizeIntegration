@@ -340,4 +340,29 @@ router.post(
   }
 );
 
+router.get("/get/:id", async (req, res, next) => {
+  const id = req.params.id;
+  try {
+    const user = await User.findByPk(id, {
+      attributes: { exclude: ["password", "salt"] },
+    });
+    if (!user)
+      return res
+        .status(404)
+        .json({ success: 0, message: "No users found with the provided id" });
+    let address = await AddressBook.findAll({
+      where: { user_id: id },
+      attributes: { exclude: ["UserId"] },
+    });
+    if (address.length < 1) address = "You have not added any addresses";
+    res.status(200).json({
+      success: 1,
+      message: "User's Details are fetched successfully",
+      data: { user, address },
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
 module.exports = router;
